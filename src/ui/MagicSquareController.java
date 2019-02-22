@@ -1,6 +1,7 @@
 package ui;
 
 import model.*;
+import customExceptions.OutOfRangeSizeException;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -88,7 +89,7 @@ public class MagicSquareController {
 				@Override
 				public void changed(ObservableValue<? extends String> obv, String oldValue, String newValue) {
 					ObservableList<String> obA  = FXCollections.observableArrayList();
-					box.setPromptText("Select the direction of the algorithm");
+					box.setPromptText("Select the orientation of the algorithm");
 					if(newValue.equals(MagicSquare.NORTH)) {
 						obA.add(MagicSquare.NORTHEAST);
 						obA.add(MagicSquare.NORTHWEST);
@@ -120,13 +121,12 @@ public class MagicSquareController {
 	*/
     void buttonPressed(ActionEvent event){
     	try {
-    	if(Integer.parseInt(textField1.getText()) % 2 != 0) {
     		if(gridBackGround.getChildren().size() == 1)
     			gridBackGround.getChildren().remove(0);
     		mS.setSize(Integer.parseInt(textField1.getText()));
-    		mS.setDirection(box.getValue());
+    		mS.setOrientation(box.getValue());
     		mS.setSquare(new int[mS.getSize()][mS.getSize()]);
-    		mS.setOrientation(dirBox.getValue());
+    		mS.setDirection(dirBox.getValue());
     		
     		GridPane grid = new GridPane();
     		grid.setAlignment(Pos.CENTER);
@@ -186,11 +186,6 @@ public class MagicSquareController {
         			
         		});
         	}
-    	}
-    	else {
-    		textField1.clear();
-    		textField1.setPromptText("Enter a valid number");
-    	}
     	}catch(NumberFormatException e) {
     		textField1.clear();
     		textField1.setPromptText("Please enter a number");
@@ -198,9 +193,15 @@ public class MagicSquareController {
     		gridBackGround.getChildren().clear();
     		dirBox.setPromptText("You have to select a direction!");
     		box.setPromptText("You have to select an orientation!");
-    	}catch(NegativeArraySizeException e) {
+    	}catch(OutOfRangeSizeException e) {
     		textField1.clear();
-    		textField1.setPromptText("Please enter a positive number");
+    		String o = e.getOut();
+    		if(o.equals(OutOfRangeSizeException.UNDER))
+    			textField1.setPromptText("Please enter a positive number greater than 0");
+    		else if(o.equals(OutOfRangeSizeException.OVER))
+    			textField1.setPromptText("Please enter a positive number smaller than 201");
+    		else
+    			textField1.setPromptText("Please enter an odd number");
     	}
     }
 

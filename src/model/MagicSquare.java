@@ -1,5 +1,6 @@
 package model;
 
+import customExceptions.*;
 /**
  * <b> Laboratorio unidad 1 </b>
  * @author César Canales <br>
@@ -377,9 +378,12 @@ public class MagicSquare {
 	/**
 	* This function modifies the size of the magic square matrix.<br>
 	* Post: The magic square has a new size now.
+	* @throws OutOfRangeSizeException if the size is too big or too small, also if the size isn't odd.
 	* @param size The new size of the magic square.
 	*/
-	public void setSize(int size) {
+	public void setSize(int size) throws OutOfRangeSizeException{
+		if(size < 1 || size > 201 || size % 2 == 0)
+			throw new OutOfRangeSizeException(size, size % 2 != 0, 1, 201);
 		this.size = size;
 	}
 
