@@ -326,33 +326,41 @@ public class MagicSquare {
 		this.square = square;
 	}
 
+	/**
+	 * This function obtains the magic square matrix.
+	 * @return the square matrix which represents the magic square.
+	 */
 	public int[][] getSquare() {
 		return this.square;
 	}
 		
 	/**
-	 * @return the startRow
+	 * This function obtains the start row of the algorithm.
+	 * @return the startRow of the magic square.
 	 */
 	public int getStartRow() {
 		return startRow;
 	}
 
 	/**
-	 * @return the startColumn
+	 * This function obtains the start column of the algorithm.
+	 * @return the startColumn of the magic square.
 	 */
 	public int getStartColumn() {
 		return startColumn;
 	}
 
 	/**
-	 * @return the direction
+	 * This function obtains the starting position of the algorithm.
+	 * @return the starting position of the magic square.
 	 */
 	public String getDirection() {
 		return direction;
 	}
 
 	/**
-	 * @return the orientation
+	 * This function obtains the orientation of the algorithm.
+	 * @return the orientation that the algorithm is going to have.
 	 */
 	public String getOrientation() {
 		return orientation;
